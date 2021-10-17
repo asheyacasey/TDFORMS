@@ -1,0 +1,116 @@
+<div id="parent">
+  <div id="left">
+   <h2 id="left-title">Create Account</h2>
+   <form (ngSubmit)= "f.valid && onSubmit()" #f = "ngForm">
+
+     <!--userData-->
+    <div id="user-data" ngModelGroup = "userData" #userData = "ngModelGroup"> 
+          <div>
+            <label for = "username">Username </label>
+            <input type="text" id="username" class="form-control" ngModel name = "username"  required username #username = "ngModel">
+            <span id="warning" *ngIf ="!username.valid && username.touched" class="help-blocked">Please enter a username</span>
+          </div>
+       
+          <div>
+            <label for = "password">Password </label>
+            <input type="password" id="password" class="form-control" ngModel name = "password" 
+            required password #password = "ngModel" minlength="8">
+            <span id="warning" *ngIf ="!password.valid && password.touched" class="help-blocked">Please create a password</span><br>
+            <span id="warning" *ngIf="!(password.valid && password.touched) && password.errors?.minlength"  class="help-blocked">Password should be at least 8 characters long</span>
+          </div>
+
+          <div>
+            <label for = "email">Email</label>
+            <input type="email"  id="email" class="form-control"   ngModel name = "email" required email #email = "ngModel" >
+            <span id="warning" *ngIf ="!email.valid && email.touched" class="help-blocked">Please enter a valid email</span>
+          </div>
+         
+          <div class="phone">
+            <label for = "phone">Phone </label>
+            <input type="number" id="phone" class="form-control" ngModel name = "phone" required phone #phone = "ngModel" >
+            <span id="warning" *ngIf ="!phone.valid && phone.touched" class="help-blocked">Please enter your phone number</span>
+          </div>
+      </div> 
+      <!--UserData-->
+
+
+    <!--otherinfo-->
+    <div id="user-data" ngModelGroup = "otherInfo" #otherInfo = "ngModelGroup">
+                    <div class="form-group"> <!--form-group-->
+                        <label for="secret">Secret Question:</label><br>
+                            <select id="secret" class="form-control">
+                              <option value="What is the name of your first pet?">What is the name of your first pet?</option>
+                              <option value="What is the name of your nursery teacher?">What is the name of your nursery teacher? </option>
+                              <option value="What is your favorite dessert?">What is your favorite dessert?</option>
+                              <option value="What is the name of your first crush?">What is the name of your first crush?</option>
+                            </select>
+                    <div> <!--textarea-->
+                         <textarea name="questionAnswer" rows="3" class="textArea" ngModel name="answer"  
+                         required answer #answer = "ngModel"  placeholder="Your answer here..."></textarea><br>
+                         <span id="warning" *ngIf ="!answer.valid && answer.touched" class="help-blocked">Please fill in the textbox.</span>
+
+                    </div> <!--textarea-->
+                    </div><!--form-group-->
+              <label>Gender</label><br>
+                  <span class="radio" *ngFor = "let gender of genders">
+                        <label for="">
+                            <input type="radio" class = "sex" name="gender" ngModel [value] = gender required> &nbsp;{{gender}} &nbsp; &nbsp; &nbsp;
+                        </label> <!--gender-->
+                      </span> <!--radio-->
+    </div> 
+    <!--OtherInfo-->
+
+    <!--Job Details-->
+    <div id="user-data" ngModelGroup = "JobDetails" #JobDetails = "ngModelGroup">
+            <div>
+                <label for = "job">Job </label>
+                <input type="text" id="job" class="form-control" ngModel name = "job" required job #job = "ngModel">
+                <span id="warning" *ngIf ="!job.valid && job.touched" class="help-blocked">Please enter your job title</span>
+            </div>
+
+            <div>
+              <label for = "job">Job Description </label>
+              <input type="text" id="job" class="form-control" ngModel name = "description"  required jobDetail #jobDetail = "ngModel" >
+              <span id="warning" *ngIf ="!jobDetail.valid && jobDetail.touched" class="help-blocked">Please enter your job details</span>
+            </div>
+      
+            <div>
+              <label for = "salary">Salary </label>
+              <input type="number" id="salary" class="form-control" ngModel name = "salary" required salary #salary = "ngModel" >
+              <span id="warning" *ngIf ="!salary.valid && salary.touched" class="help-blocked">Please enter your salary</span>
+            </div>
+    </div>
+    <!--Job Details-->
+
+    <button class="btn btn-primary" id="button" type="submit">Submit</button>
+   </form>
+  </div>
+
+
+
+
+  <div id="right" >
+    <h2 id="right-title">My Profile</h2>
+    <div *ngIf = "submitted" >
+          <div class = "profile">
+            <h3 class = "headline">Personal Info</h3><br>
+              <p> Username: <u>{{ user.username }}</u> </p>
+              <p> Password: <u>{{ user.password }}</u></p>
+              <p> Email: <u>{{ user.email }}</u></p>
+              <p> Phone:  <u>{{ user.phone }}</u></p>
+              <p> Gender: <u>{{ user.gender }}</u></p>
+          </div>
+          <div class="moreInfo">
+            <h3 class = "headline">About Me</h3><br>
+          <p> Secret Question: {{ user.secretQuestion }}</p>
+          <p> Answer: {{ user.answer }}</p>
+          </div>
+          <div class="detail">
+          <h3 class = "headline">Work</h3><br>
+          <p> Job: <u>{{ user.job }}</u></p>
+          <p> Description: <u>{{ user.description }}</u></p>
+          <p> Salary: <u>PHP{{ user.salary }}</u></p>
+          </div>
+    </div>
+  </div>
+</div>
